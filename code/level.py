@@ -1,11 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from code.entity import Entity
+
 
 class Level:
-    def __init__(self):
-        self.window = None
-        self.namr = None
-        self.enity_lista = None
+    def __init__(self,window,name,game_mode):
+        self.window = window
+        self.name = name
+        self.game_mode = game_mode
+        self.entity_lista: list[Entity] = []
+
 
     def run(self, ):
         pass
