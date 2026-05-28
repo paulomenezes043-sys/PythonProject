@@ -4,7 +4,7 @@ import random
 import sys
 
 import pygame
-from pygame import Surface, Rect
+from pygame import Surface, Rect, mixer_music
 from pygame.font import Font
 
 from code import player
@@ -37,6 +37,7 @@ class Level:
 
     def run(self, player_score:list[int]):
         pygame.mixer_music.load(f'./asset/{self.name}.mp3')
+        pygame.mixer_music.set_volume(0.3)
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
         while True:
@@ -69,7 +70,6 @@ class Level:
                             if isinstance(ent, Player) and ent.name == 'Player2':
                                 player_score[1] = ent.score
                         return True
-
                 found_player = False
                 for ent in self.entity_list:
                     if isinstance(ent, Player):
@@ -77,9 +77,6 @@ class Level:
 
                 if not found_player:
                     return False
-
-
-
             #PRINTED TEXT
             self.level_text(14, f'{self.name} - Timeout:{self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
             self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
@@ -87,7 +84,6 @@ class Level:
             pygame.display.flip()
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
-
             #COLLISION
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
